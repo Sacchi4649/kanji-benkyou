@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const contentSchema = new mongoose.Schema(
   {
     video: { type: String, default: "" },
+    kanji: { type: String, required: false },
     stroke: { type: String, required: false },
     meaning: { type: String, required: false },
     reading: {

@@ -4,11 +4,11 @@ const router = require("express").Router();
 const UserController = require("../controllers/userController");
 const authentication = require("../middlewares/authentication");
 
+router.post("/register", UserController.register);
 router.post("/login", UserController.login);
-router.post("/", authentication, UserController.createUser);
-router.get("/", authentication, UserController.getAllUser);
-router.get("/:id", authentication, UserController.getOneUser);
-router.put("/:id", authentication, UserController.editUser);
-router.patch("/delete-user", authentication, UserController.deleteUser);
+router.get("/", UserController.getAllUser);
+router.get("/:id", UserController.getOneUser);
+router.put("/:id", UserController.editUser);
+router.patch("/", UserController.deleteUser);
 
 module.exports = router;

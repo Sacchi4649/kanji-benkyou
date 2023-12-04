@@ -6,21 +6,8 @@ const {
   passwordValidation,
 } = require("../utils/passwordHandler");
 const { generateToken } = require("../utils/jwtHandler");
-class UserController {
-  static async createUser(request, response, next) {
-    try {
-      const { username, password } = request.body;
-      const user = new userModel({
-        username,
-        password: passwordEncryption(password),
-      });
-      await user.save();
-      response.status(200).json({ user });
-    } catch (error) {
-      next(error);
-    }
-  }
 
+class UserController {
   static async login(request, response, next) {
     try {
       const { username, password } = request.body;
@@ -46,15 +33,36 @@ class UserController {
     }
   }
 
+  static async register(request, response, next) {
+    try {
+      const { username, password } = request.body;
+      const user = new userModel({
+        username,
+        password: passwordEncryption(password),
+      });
+      const checkAvailaibility = await userModel.findOne({
+        username: username,
+      });
+
+      if (checkAvailaibility)
+        // throw langsung melempar ke catch (seperti break)
+        throw {
+          name: "ConflictError",
+          message: "Username telah dibuat",
+        };
+
+      await user.save();
+      response.status(200).json({ user });
+    } catch (error) {
+      next(error);
+    }
+  }
   static async getAllUser(request, response, next) {
     try {
       const { limit = 10, offset = 0, search = "" } = request.query;
       const findUser = await userModel
         .find({
-          $or: [
-            { username: { $regex: new RegExp(search, "i") } },
-            { role: { $regex: new RegExp(search, "i") } },
-          ],
+          $or: [{ username: { $regex: new RegExp(search, "i") } }],
           isDeleted: false,
         })
         .limit(limit)
@@ -107,7 +115,7 @@ class UserController {
           { _id: id },
           {
             username,
-            password,
+            password: passwordEncryption(password),
           },
           {
             new: true,
