@@ -1,46 +1,36 @@
 "use strict";
 
-const userModel = require("../models/userSchema");
-const {
-  passwordEncryption,
-  passwordValidation,
-} = require("../utils/passwordHandler");
-const { generateToken } = require("../utils/jwtHandler");
-class UserController {
-  static async createUser(request, response, next) {
+const contentModel = require("../models/contentSchema");
+
+class ContentController {
+  static async addContent(request, response, next) {
     try {
-      const { username, password } = request.body;
-      const user = new userModel({
-        username,
-        password: passwordEncryption(password),
+      const { video, stroke, meaning, reading, vocabulary, grade } =
+        request.body;
+
+      const content = new contentModel({
+        video,
+        stroke,
+        meaning,
+        reading,
+        vocabulary,
+        grade,
       });
-      await user.save();
-      response.status(200).json({ user });
+      await content.save();
+      response.status(200).json({ content });
     } catch (error) {
       next(error);
     }
   }
 
-  static async login(request, response, next) {
+  static async getContent(request, response, next) {
     try {
-      const { username, password } = request.body;
-      const findUsername = await userModel.findOne({ username: username });
-      if (findUsername) {
-        if (passwordValidation(password, findUsername.password)) {
-          response.status(200).json({
-            message: "Login berhasil",
-            token: generateToken({
-              id: findUsername._id,
-              username: findUsername.username,
-            }),
-            username: findUsername.username,
-          });
-        } else {
-          response.status(400).json({ message: "Wrong Username/Password" });
-        }
-      } else {
-        response.status(400).json({ message: "Wrong Username/Password" });
-      }
+      const { id } = request.params;
+      const findContent = await contentModel.findOne({
+        _id: id,
+        isDeleted: false,
+      });
+      response.status(200).json({ content: findContent });
     } catch (error) {
       next(error);
     }
@@ -145,4 +135,4 @@ class UserController {
   }
 }
 
-module.exports = UserController;
+module.exports = ContentController;

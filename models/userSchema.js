@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema(
       grade4: { type: Number },
       grade5: { type: Number },
     },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );

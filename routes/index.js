@@ -5,6 +5,6 @@ const userRoute = require("./userRoute");
 const contentRoute = require("./contentRoute");
 
 router.use("/user", userRoute);
-router.user("/content", contentRoute);
+router.use("/content", contentRoute);
 
 module.exports = router;
