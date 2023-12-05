@@ -7,5 +7,4 @@ const upload = require("../utils/cloudStorage");
 
 // router.post("/login", UserController.login);
 router.post("/", upload.single("video"), ContentController.addContent);
-
 module.exports = router;

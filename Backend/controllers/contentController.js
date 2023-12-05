@@ -36,7 +36,7 @@ class ContentController {
     }
   }
 
-  static async getAllUser(request, response, next) {
+  static async getAllContent(request, response, next) {
     try {
       const { limit = 10, offset = 0, search = "" } = request.query;
       const findUser = await userModel

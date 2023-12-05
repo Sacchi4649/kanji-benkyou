@@ -1,14 +1,15 @@
 const unggah = require("unggah");
+
 // const contentModel = require("../models/contentSchema");
 
 // const totalContent = await contentModel.find().count();
 // console.log(totalContent);
 
+// const totalContent = await contentModel.find().count();
 const storage = unggah.gcs({
   keyFilename: "./kanji-benkyou-serviceaccount.json",
   bucketName: "kanji-benkyou",
   rename: (req, file) => {
-    console.log(file);
     // console.log(totalContent);
     return `${Date.now()}-${file.originalname}`;
   },
