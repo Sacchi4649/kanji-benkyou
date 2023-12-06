@@ -2,9 +2,9 @@
 
 const router = require("express").Router();
 const ContentController = require("../controllers/contentController");
-// const  = require("../middlewares/");
+// const  = require("../middlewares/authentication");
 const upload = require("../utils/cloudStorage");
 
-// router.post("/login", UserController.login);
 router.post("/", upload.single("video"), ContentController.addContent);
+router.get("/", ContentController.getAllContent);
 module.exports = router;
