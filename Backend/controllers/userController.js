@@ -151,6 +151,29 @@ class UserController {
       next(error);
     }
   }
+
+  static async restoreUser(request, response, next) {
+    try {
+      const { idUser } = request.body;
+      const user = await userModel.findOne({ _id: idUser, isDeleted: true });
+
+      if (user._id == idUser) {
+        const restoreUser = await userModel.findOneAndUpdate(
+          { _id: idUser },
+          {
+            isDeleted: false,
+          },
+          {
+            new: true,
+            upsert: true,
+          }
+        );
+        response.status(200).json({ user: restoreUser });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;
