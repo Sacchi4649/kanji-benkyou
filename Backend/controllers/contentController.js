@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 
 const contentModel = require("../models/contentSchema");
 
@@ -33,22 +33,9 @@ class ContentController {
     }
   }
 
-  static async getContent(request, response, next) {
-    try {
-      const { id } = request.params;
-      const findContent = await contentModel.findOne({
-        _id: id,
-        isDeleted: false,
-      });
-      response.status(200).json({ content: findContent });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async getAllContent(request, response, next) {
     try {
-      const { limit = 10, offset = 0, search = "ni" } = request.query;
+      const { limit = 10, offset = 0, search = "二" } = request.query;
       const findContent = await contentModel
         .find({
           $or: [
@@ -79,34 +66,82 @@ class ContentController {
     }
   }
 
-  // static async editUser(request, response, next) {
-  //   try {
-  //     const { id } = request.params;
-  //     const { username, password } = request.body;
-  //     const findUser = await userModel.findOne({
-  //       _id: id,
-  //       isDeleted: false,
-  //     });
+  static async updateContent(request, response, next) {
+    try {
+      const { id } = request.params;
+      const {
+        video,
+        kanji,
+        stroke,
+        meaning,
+        onyomi,
+        kunyomi,
+        vocabulary,
+        grade,
+      } = request.body;
+      const findContent = await contentModel.findOne({
+        _id: id,
+        isDeleted: false,
+      });
 
-  //     if (findUser._id == id) {
-  //       const updateUser = await userModel.findOneAndUpdate(
-  //         { _id: id },
-  //         {
-  //           username,
-  //           password,
-  //         },
-  //         {
-  //           new: true,
-  //           upsert: true,
-  //         }
-  //       );
-  //       response.status(200).json({ user: updateUser });
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      if (findContent._id == id) {
+        const updateContent = await contentModel.findOneAndUpdate(
+          { _id: id },
+          {
+            video,
+            kanji,
+            stroke,
+            meaning,
+            onyomi,
+            kunyomi,
+            vocabulary,
+            grade,
+          },
+          {
+            new: true,
+            upsert: true,
+          }
+        );
+        response.status(200).json({ content: updateContent });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 
+  static async isDone(request, response, next) {
+    try {
+      const { id } = request.params;
+
+      const findContent = await contentModel.findOne({
+        _id: id,
+        isDeleted: false,
+      });
+
+      let status;
+      if (findContent.isDone == false) {
+        status = true;
+      } else {
+        status = false;
+      }
+
+      if (findContent._id == id) {
+        const isDone = await contentModel.findOneAndUpdate(
+          { _id: id },
+          {
+            isDone: status,
+          },
+          {
+            new: true,
+            upsert: true,
+          }
+        );
+        response.status(200).json({ isDone: isDone });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
   // static async deleteUser(request, response, next) {
   //   try {
   //     const { idUser } = request.body;

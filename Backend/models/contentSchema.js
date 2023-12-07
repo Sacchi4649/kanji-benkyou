@@ -8,15 +8,23 @@ const contentSchema = new mongoose.Schema(
     meaning: { type: String, required: true },
     onyomi: { type: String, required: true, default: "-" },
     kunyomi: { type: String, required: true, default: "-" },
-    vocabulary: {
-      word: { type: String, default: "" },
-      romaji: { type: String, default: "" },
-      wordMeaning: { type: String, default: "" },
-    },
+    vocabulary: { type: Object, required: true },
+    // The vocabulary object will contain like this
+    // vocabulary1:{
+    //   word:
+    //   romaji:
+    //   wordMeaning:
+    // }
+    // vocabulary2...
     grade: {
       type: String,
       enum: ["1", "2", "3", "4", "5", "6"],
       required: true,
+    },
+    isDone: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
