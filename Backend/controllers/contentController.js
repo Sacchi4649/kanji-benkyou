@@ -35,7 +35,7 @@ class ContentController {
 
   static async getAllContent(request, response, next) {
     try {
-      const { limit = 10, offset = 0, search = "二" } = request.query;
+      const { limit = 10, offset = 0, search = "" } = request.query;
       const findContent = await contentModel
         .find({
           $or: [
@@ -78,11 +78,25 @@ class ContentController {
         kunyomi,
         vocabulary,
         grade,
+        idVocab,
       } = request.body;
+
       const findContent = await contentModel.findOne({
         _id: id,
         isDeleted: false,
       });
+      let elementExist = false;
+      findContent.vocabulary.map(async function (vocab, index) {
+        if (vocab._id == idVocab) {
+          findContent.vocabulary.set(index, vocabulary[0]);
+          elementExist = true;
+        }
+      });
+
+      if (elementExist == false) {
+        findContent.vocabulary.push(vocabulary[0]);
+      }
+      const updatedVocabulary = findContent.vocabulary;
 
       if (findContent._id == id) {
         const updateContent = await contentModel.findOneAndUpdate(
@@ -94,7 +108,7 @@ class ContentController {
             meaning,
             onyomi,
             kunyomi,
-            vocabulary,
+            vocabulary: updatedVocabulary,
             grade,
           },
           {
@@ -109,6 +123,25 @@ class ContentController {
     }
   }
 
+  static async deleteContent(request, response, next) {
+    try {
+      const { idContent } = request.params;
+      const contentAvailability = await contentModel.findOne({
+        _id: idContent,
+      });
+
+      if (contentAvailability) {
+        await contentModel.findOneAndDelete({
+          _id: idContent,
+        });
+        response.status(200).json({ message: "Content deleted succesfully" });
+      } else {
+        response.status(400).json({ message: "Content not found" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
   static async isDone(request, response, next) {
     try {
       const { id } = request.params;
@@ -142,28 +175,6 @@ class ContentController {
       next(error);
     }
   }
-  // static async deleteUser(request, response, next) {
-  //   try {
-  //     const { idUser } = request.body;
-  //     const user = await userModel.findOne({ _id: idUser, isDeleted: false });
-
-  //     if (user._id == idUser) {
-  //       const deleteUser = await userModel.findOneAndUpdate(
-  //         { _id: idUser },
-  //         {
-  //           isDeleted: true,
-  //         },
-  //         {
-  //           new: true,
-  //           upsert: true,
-  //         }
-  //       );
-  //       response.status(200).json({ user: deleteUser });
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 }
 
 module.exports = ContentController;

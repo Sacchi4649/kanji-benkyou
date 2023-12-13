@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-
+const vocabs = new mongoose.Schema({
+  word: String,
+  romaji: String,
+  meaning: String,
+});
 const contentSchema = new mongoose.Schema(
   {
     video: { type: String, default: "" },
@@ -8,14 +12,7 @@ const contentSchema = new mongoose.Schema(
     meaning: { type: String, required: true },
     onyomi: { type: String, required: true, default: "-" },
     kunyomi: { type: String, required: true, default: "-" },
-    vocabulary: { type: Object, required: true },
-    // The vocabulary object will contain like this
-    // vocabulary1:{
-    //   word:
-    //   romaji:
-    //   wordMeaning:
-    // }
-    // vocabulary2...
+    vocabulary: [vocabs],
     grade: {
       type: String,
       enum: ["1", "2", "3", "4", "5", "6"],
