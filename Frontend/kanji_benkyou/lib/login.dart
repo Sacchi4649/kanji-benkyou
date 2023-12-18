@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+
+import 'navbar.dart';
 import 'register.dart';
 
-
-
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Login Form',
       home: LoginPage(),
       debugShowCheckedModeBanner: false,
@@ -20,11 +21,13 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-  class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -107,7 +110,7 @@ Widget build(BuildContext context) {
               ),
               ),
               
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
 
               ElevatedButton(
                 onPressed: () {
@@ -115,7 +118,7 @@ Widget build(BuildContext context) {
                   String username = _usernameController.text;
                   String password = _passwordController.text;
 
-                  // You can add your authentication logic here
+                      // You can add your authentication logic here
 
                   print('Username: $username');
                   print('Password: $password');
@@ -133,8 +136,6 @@ Widget build(BuildContext context) {
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
-             
-             const SizedBox(height: 5),
              
               ElevatedButton(
                 onPressed: () {

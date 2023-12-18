@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'login.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Register Form',
       home: RegisterScreen(),
       debugShowCheckedModeBanner: false,
@@ -17,6 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -50,13 +55,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Text(
                       'Buat Akun',
-                      style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 144, 144, 144)),
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Color.fromARGB(255, 144, 144, 144)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
                     controller: _usernameController,
                     decoration: const InputDecoration(
@@ -66,7 +73,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Nama Pengguna',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
                       labelText: 'Nama Pengguna',
-                      labelStyle: TextStyle(fontSize: 12, color: Colors.black87),
+                      labelStyle:
+                          TextStyle(fontSize: 12, color: Colors.black87),
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -76,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(
@@ -86,7 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Kata Sandi',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
                       labelText: 'Kata Sandi',
-                      labelStyle: TextStyle(fontSize: 12, color: Colors.black87),
+                      labelStyle:
+                          TextStyle(fontSize: 12, color: Colors.black87),
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -96,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
                     controller: _confirmPassController,
                     decoration: const InputDecoration(
@@ -106,7 +115,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Konfirmasi Kata Sandi',
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
                       labelText: 'Konfirmasi Kata Sandi',
-                      labelStyle: TextStyle(fontSize: 12, color: Colors.black87),
+                      labelStyle:
+                          TextStyle(fontSize: 12, color: Colors.black87),
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -114,7 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 5),
 
                 ElevatedButton(
                   onPressed: () {
@@ -143,14 +153,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 5),
-
                 ElevatedButton(
                   onPressed: () {
                     // Implement back logic here or navigate back
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -159,12 +168,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 121),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
-                      side: BorderSide(color: Color.fromRGBO(69, 46, 201, 1)),
+                      side: const BorderSide(
+                          color: Color.fromRGBO(69, 46, 201, 1)),
                     ),
                   ),
                   child: const Text(
                     'Kembali',
-                    style: TextStyle(fontSize: 18, color: Color.fromRGBO(69, 46, 201, 1)),
+                    style: TextStyle(
+                        fontSize: 18, color: Color.fromRGBO(69, 46, 201, 1)),
                   ),
                 ),
               ],
