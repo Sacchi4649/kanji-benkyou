@@ -114,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 8),
 
                 ElevatedButton(
                   onPressed: () {
@@ -142,6 +142,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
+
+                const SizedBox(height: 5),
 
                 ElevatedButton(
                   onPressed: () {

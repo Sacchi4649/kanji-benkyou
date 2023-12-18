@@ -107,7 +107,7 @@ Widget build(BuildContext context) {
               ),
               ),
               
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
 
               ElevatedButton(
                 onPressed: () {
@@ -133,6 +133,8 @@ Widget build(BuildContext context) {
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
+             
+             const SizedBox(height: 5),
              
               ElevatedButton(
                 onPressed: () {

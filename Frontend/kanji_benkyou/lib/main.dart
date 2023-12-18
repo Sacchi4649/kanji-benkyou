@@ -4,7 +4,7 @@ import 'Splashscreen.dart';
 void main() {
   runApp(const MaterialApp(
     home: MyApp(),
-    debugShowCheckedModeBanner: false, // Menghilangkan banner debug
+    debugShowCheckedModeBanner: false,
   ));
 }
 
